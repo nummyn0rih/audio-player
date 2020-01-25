@@ -1,20 +1,20 @@
-"use strict";
+'use strict';
 
 // Load plugins
-const autoprefixer = require("autoprefixer");
+const autoprefixer = require('autoprefixer');
 const babel = require('gulp-babel');
-const browsersync = require("browser-sync").create();
+const browsersync = require('browser-sync').create();
 const concat = require('gulp-concat');
-const cssnano = require("cssnano");
-const del = require("del");
-// const eslint = require("gulp-eslint");
-const gulp = require("gulp");
-const imagemin = require("gulp-imagemin");
-const newer = require("gulp-newer");
-const plumber = require("gulp-plumber");
-const postcss = require("gulp-postcss");
-const rename = require("gulp-rename");
-const sass = require("gulp-sass");
+const cssnano = require('cssnano');
+const del = require('del');
+// const eslint = require('gulp-eslint');
+const gulp = require('gulp');
+const imagemin = require('gulp-imagemin');
+const newer = require('gulp-newer');
+const plumber = require('gulp-plumber');
+const postcss = require('gulp-postcss');
+const rename = require('gulp-rename');
+const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 
 // const path = require('path');
@@ -46,7 +46,7 @@ function browserSync(done) {
 
 // Clean assets
 function clean() {
-  return del(["./dist/"]);
+  return del(['./dist/']);
 }
 
 // HTML task
@@ -64,20 +64,20 @@ function css() {
     .src(paths.sassSrc)
     .pipe(plumber())
     .pipe(sourcemaps.init())
-    .pipe(sass({ outputStyle: "expanded" }).on('error', sass.logError))
+    .pipe(sass({ outputStyle: 'expanded' }).on('error', sass.logError))
     .pipe(concat('styles.css'))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest("./dist/css/"))
-    .pipe(rename({ suffix: ".min" }))
+    .pipe(gulp.dest('./dist/css/'))
+    .pipe(rename({ suffix: '.min' }))
     .pipe(postcss([autoprefixer(), cssnano()]))
-    .pipe(gulp.dest("./dist/css/"))
+    .pipe(gulp.dest('./dist/css/'))
     .pipe(browsersync.stream());
 }
 
 // // Lint scripts
 // function scriptsLint() {
 //   return gulp
-//     .src([paths.jsSrc, "./gulpfile.js"])
+//     .src([paths.jsSrc, './gulpfile.js'])
 //     .pipe(plumber())
 //     .pipe(eslint())
 //     .pipe(eslint.format())
@@ -91,7 +91,7 @@ function scripts() {
       .src(paths.jsSrc)
       .pipe(plumber())
       .pipe(babel())
-      .pipe(gulp.dest("./dist/js/"))
+      .pipe(gulp.dest('./dist/js/'))
       .pipe(browsersync.stream())
   );
 }
@@ -116,7 +116,14 @@ function images() {
         // })
       ])
     )
-    .pipe(gulp.dest("./dist/img/"));
+    .pipe(gulp.dest('./dist/img/'));
+}
+
+// Copy fonts
+function fonts() {
+  return gulp
+    .src('./app/fonts/*')
+    .pipe(gulp.dest('./dist/fonts/'));
 }
 
 // Watch files
@@ -131,13 +138,14 @@ function watchFiles() {
 // define complex tasks
 // const js = gulp.series(scriptsLint, scripts);
 const js = gulp.series(scripts);
-const build = gulp.series(clean, gulp.parallel(html, css, images, js));
+const build = gulp.series(clean, gulp.parallel(html, css, images, fonts, js));
 const watch = gulp.parallel(watchFiles, browserSync);
 
 // export tasks
 exports.css = css;
 exports.js = js;
 exports.images = images;
+exports.fonts = fonts;
 exports.clean = clean;
 exports.build = build;
 exports.watch = watch;

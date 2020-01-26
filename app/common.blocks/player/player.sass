@@ -2,11 +2,12 @@
     display: flex
     flex-direction: column
     align-items: center
-    padding: 70px 7% 90px
+    height: 100vh
+    padding: 15% 7% 20%
     background: linear-gradient(to bottom, #364a57 0%, #3d3657 33%, #563657 67%, #364a57 100%)
 
     &__header
-        margin: 0 0 75px
+        margin: 0 0 15%
 
     &__playlist
         width: 100%
@@ -15,4 +16,24 @@
         justify-content: space-between
         
         &:not(:first-child)
-            margin-top: 30px
+            margin-top: 8%
+
+@mixin indentation($playerPadding, $headerMargin, $trackMargin)
+    .player
+        padding: $playerPadding
+        &__header
+            margin: 0 0 $headerMargin
+        &__track:not(:first-child)
+            margin-top: $trackMargin
+    
+@media only screen and (min-device-width: 320px) and (max-device-width: 479px)
+    @include indentation(10% 7% auto, 8%, 7%)
+    
+@media only screen and (min-device-width: 480px) and (max-device-width: 767px)
+    @include indentation(9% 10% 11%, 8%, 5%)
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)
+    @include indentation(6% 10% 8%, 4%, 5%)
+    
+@media only screen and (min-device-width: 1024px)
+    @include indentation(4% 10% 7%, 7%, 3%)

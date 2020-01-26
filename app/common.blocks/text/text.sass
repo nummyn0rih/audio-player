@@ -1,24 +1,40 @@
 @import '../../fonts/fonts'
 
-@mixin font-bebas($size: 18px, $color: #fff, $weight: 400)
+@mixin font-bebas( $size: 1.1rem, $color: #fff, $weight: 400 )
     font-family: 'Bebas Neue Regular', 'Oswald', sans-serif
     font-weight: $weight
     font-size: $size
-    // line-height: 24px
     color: $color
     text-transform: uppercase
 
-.text
+@mixin htmlSize($size)
+    html
+        font-size: $size
 
+.text
     &__header
-        @include font-bebas(48px, #fff, 700)
+        @include font-bebas(3rem, #fff, 700)
 
     &__song
-        @include font-bebas(24px)
+        @include font-bebas(1.5rem)
 
     &__singer
-        @include font-bebas(18px, #aaa)
+        @include font-bebas(1.1rem, #aaa)
 
     &__time
-        @include font-bebas(18)
-        
+        @include font-bebas()
+
+@media only screen and (max-device-width: 319px)
+    @include htmlSize(11px)
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 479px)
+    @include htmlSize(12px)
+    
+@media only screen and (min-device-width: 480px) and (max-device-width: 767px)
+    @include htmlSize(14px)
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)
+    @include htmlSize(16px)
+    
+@media only screen and (min-device-width: 1024px)
+    @include htmlSize(18px)

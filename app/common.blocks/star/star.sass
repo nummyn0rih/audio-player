@@ -3,7 +3,7 @@
     width: 20px
     background-image: url('./../img/star.png')
     background-repeat: no-repeat
-    z-index: 1
+    background-size: cover
     cursor: pointer
 
     &__shadow
@@ -11,8 +11,27 @@
         height: 0px
         width: 0px
         border-radius: 50%
-        box-shadow: 0px 0px 20px 12px #ff6a00
+        box-shadow: 0px 0px 20px 10px #ff6a00
 
     &_active
         position: relative
         background-image: url('./../img/star-active.png')
+
+@mixin starSize($size, $shadow: 10px)
+    .star
+        height: $size
+        width: $size
+        &__shadow
+            box-shadow: 0px 0px 20px $shadow #ff6a00
+    
+@media only screen and (max-device-width: 479px)
+    @include starSize(15px, 7px)
+    
+@media only screen and (min-device-width: 480px) and (max-device-width: 767px)
+    @include starSize(16px, 8px)
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)
+    @include starSize(18px, 9px)
+    
+@media only screen and (min-device-width: 1024px)
+    @include starSize(20px)

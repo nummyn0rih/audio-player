@@ -1,9 +1,13 @@
 "use strict";
 
+/* eslint-disable linebreak-style */
+
+/* eslint-disable no-undef */
 // Реализация на jQuery
 $(function () {
-  $(".track__star").click(function () {
-    $(this).toggleClass("star_active");
+  // eslint-disable-next-line func-names
+  $('.track__star').click(function () {
+    $(this).toggleClass('star_active');
   });
 });
 "use strict";
@@ -16,6 +20,7 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
+/* eslint-disable linebreak-style */
 // Реализация на чистом JS
 document.addEventListener('click', function (event) {
   var track = event.target.closest('.track');
@@ -24,8 +29,8 @@ document.addEventListener('click', function (event) {
 
   var trackList = _toConsumableArray(document.querySelectorAll('.track'));
 
-  trackList.map(function (track) {
-    return track.classList.remove('track_active');
+  trackList.map(function (item) {
+    return item.classList.remove('track_active');
   });
   track.classList.toggle('track_active');
   event.preventDefault();

@@ -1,8 +1,10 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable no-undef */
 // Реализация на jQuery
 
-$(function(){
-    $(".track__star").click(function(){
-        $(this).toggleClass("star_active");
-    });
+$(() => {
+  // eslint-disable-next-line func-names
+  $('.track__star').click(function () {
+    $(this).toggleClass('star_active');
+  });
 });
-

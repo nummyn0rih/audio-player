@@ -1,4 +1,5 @@
-'use strict';
+/* eslint-disable linebreak-style */
+/* eslint-disable no-undef */
 
 // Load plugins
 const autoprefixer = require('autoprefixer');
@@ -35,7 +36,7 @@ function browserSync(done) {
     server: {
       baseDir: paths.out,
     },
-    port: 3000
+    port: 3000,
   });
   done();
 }
@@ -53,7 +54,7 @@ function html() {
     .pipe(plumber())
     .pipe(gulp.dest(paths.out))
     .pipe(browsersync.stream());
-};
+}
 
 // CSS task
 function css() {
@@ -113,7 +114,7 @@ function images() {
         //     }
         //   ]
         // })
-      ])
+      ]),
     )
     .pipe(gulp.dest('./dist/img/'));
 }

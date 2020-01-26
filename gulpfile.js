@@ -8,7 +8,6 @@ const browsersync = require('browser-sync').create();
 const concat = require('gulp-concat');
 const cssnano = require('cssnano');
 const del = require('del');
-// const eslint = require('gulp-eslint');
 const gulp = require('gulp');
 const imagemin = require('gulp-imagemin');
 const newer = require('gulp-newer');
@@ -21,12 +20,13 @@ const sourcemaps = require('gulp-sourcemaps');
 const paths = {
   out: './dist',
   htmlSrc: './app/index.html',
-  sassSrc: './app/**/*.sass',
+  sassSrc: './app/common.blocks/**/*.sass',
   jsSrc: './app/common.blocks/**/*.js',
   imgSrc: './app/img/*',
   levels: [
     'common.blocks',
-    // 'desktop.blocks'
+    // 'desktop.blocks',
+    // 'touch.blocks',
   ],
 };
 
@@ -72,18 +72,8 @@ function css() {
     .pipe(browsersync.stream());
 }
 
-// // Lint scripts
-// function scriptsLint() {
-//   return gulp
-//     .src([paths.jsSrc, './gulpfile.js'])
-//     .pipe(plumber())
-//     .pipe(eslint())
-//     .pipe(eslint.format())
-//     .pipe(eslint.failAfterError());
-// }
-
 // Transpile, concatenate and minify scripts
-function scripts() {
+function js() {
   return gulp
     .src(paths.jsSrc)
     .pipe(plumber())
@@ -104,16 +94,6 @@ function images() {
     .pipe(
       imagemin([
         imagemin.optipng({ optimizationLevel: 5 }),
-        // imagemin.gifsicle({ interlaced: true }),
-        // imagemin.jpegtran({ progressive: true }),
-        // imagemin.svgo({
-        //   plugins: [
-        //     {
-        //       removeViewBox: false,
-        //       collapseGroups: true
-        //     }
-        //   ]
-        // })
       ]),
     )
     .pipe(gulp.dest('./dist/img/'));
@@ -130,14 +110,11 @@ function fonts() {
 function watchFiles() {
   gulp.watch(paths.htmlSrc, html);
   gulp.watch(paths.sassSrc, css);
-  // gulp.watch(paths.jsSrc, gulp.series(scriptsLint, scripts));
-  gulp.watch(paths.jsSrc, gulp.series(scripts));
+  gulp.watch(paths.jsSrc, js);
   gulp.watch(paths.imgSrc, images);
 }
 
 // define complex tasks
-// const js = gulp.series(scriptsLint, scripts);
-const js = gulp.series(scripts);
 const build = gulp.series(clean, gulp.parallel(html, css, images, fonts, js));
 const watch = gulp.parallel(watchFiles, browserSync);
 

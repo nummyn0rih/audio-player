@@ -16,24 +16,17 @@
     "url": "https://github.com/nummyn0rih/audio-player/issues"
   },
   "homepage": "https://github.com/nummyn0rih/audio-player#readme",
-  "babel": {
-    "presets": [
-      "latest"
-    ]
-  },
   "devDependencies": {
     "@babel/cli": "^7.8.3",
     "@babel/core": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
-    "babel-preset-latest": "^6.24.1",
     "browser-sync": "^2.26.7",
     "cssnano": "^4.1.10",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
-    "gulp-babel": "^8.0.0",
+    "gulp-babel": "^8.0.0-beta.2",
     "gulp-concat": "^2.6.1",
-    "gulp-debug": "^4.0.0",
     "gulp-imagemin": "^7.1.0",
     "gulp-minify-css": "^1.2.4",
     "gulp-newer": "^1.4.0",

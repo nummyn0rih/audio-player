@@ -17,15 +17,11 @@ const rename = require('gulp-rename');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 
-// const path = require('path');
-// const url = require('gulp-css-url-adjuster');
-// const autoprefixer = require('gulp-autoprefixer');
-
 const paths = {
   out: './dist',
   htmlSrc: './app/index.html',
   sassSrc: './app/**/*.sass',
-  jsSrc: './app/**/*.js',
+  jsSrc: './app/common.blocks/**/*.js',
   imgSrc: './app/img/*',
   levels: [
     'common.blocks',
@@ -44,14 +40,15 @@ function browserSync(done) {
   done();
 }
 
-// Clean assets
+// Clean dist
 function clean() {
   return del(['./dist/']);
 }
 
 // HTML task
 function html() {
-  return gulp.src(paths.htmlSrc)
+  return gulp
+    .src(paths.htmlSrc)
     .pipe(rename('index.html'))
     .pipe(plumber())
     .pipe(gulp.dest(paths.out))
@@ -86,14 +83,16 @@ function css() {
 
 // Transpile, concatenate and minify scripts
 function scripts() {
-  return (
-    gulp
-      .src(paths.jsSrc)
-      .pipe(plumber())
-      .pipe(babel())
-      .pipe(gulp.dest('./dist/js/'))
-      .pipe(browsersync.stream())
-  );
+  return gulp
+    .src(paths.jsSrc)
+    .pipe(plumber())
+    .pipe(sourcemaps.init())
+    .pipe(babel())
+    .pipe(concat('index.js'))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('./app/js/'))
+    .pipe(gulp.dest('./dist/js/'))
+    .pipe(browsersync.stream());
 }
 
 // Optimize Images
@@ -122,7 +121,7 @@ function images() {
 // Copy fonts
 function fonts() {
   return gulp
-    .src('./app/fonts/*')
+    .src('./app/fonts/*.{woff,ttf}')
     .pipe(gulp.dest('./dist/fonts/'));
 }
 

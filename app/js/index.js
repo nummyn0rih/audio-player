@@ -26,13 +26,26 @@ document.addEventListener('click', function (event) {
   var track = event.target.closest('.track');
   if (!track) return;
   if (event.target.className === 'star') return;
+  var progressbar = track.querySelector('.track__progress');
 
-  var trackList = _toConsumableArray(document.querySelectorAll('.track'));
+  if (track.classList.contains('track_active')) {
+    var progressbarCoord = track.getBoundingClientRect();
+    var startOfProgress = progressbarCoord.x;
+    var progressbarWidht = progressbarCoord.width;
+    var curentCoord = event.clientX; // eslint-disable-next-line no-mixed-operators
 
-  trackList.map(function (item) {
-    return item.classList.remove('track_active');
-  });
-  track.classList.toggle('track_active');
+    var newProgress = 100 - Math.round((curentCoord - startOfProgress) / progressbarWidht * 100);
+    progressbar.style.right = "".concat(newProgress, "%");
+  } else {
+    var trackList = _toConsumableArray(document.querySelectorAll('.track'));
+
+    trackList.map(function (item) {
+      return item.classList.remove('track_active');
+    });
+    track.classList.toggle('track_active');
+    progressbar.style.right = '99%';
+  }
+
   event.preventDefault();
 });
 //# sourceMappingURL=index.js.map
